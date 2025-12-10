@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Alert, Image, TextInput, Keyboard } from 'react-native';
+import { useTheme } from '../context/ThemeContext'; // Import Theme Context
+import { StyleSheet, View, Text, TouchableOpacity, Alert, Image, TextInput, Keyboard } from 'react-native';
 import MapLibreGL from '@maplibre/maplibre-react-native';
 import * as Location from 'expo-location';
 import polyline from '@mapbox/polyline';
@@ -27,7 +29,9 @@ const OSM_DE_STYLE = {
 };
 
 export default function MapScreen() {
+    const { colors, theme } = useTheme(); // Use Theme
     const [location, setLocation] = useState(null);
+    const [speed, setSpeed] = useState(0); // Speed State
     const [permissionResponse, requestPermission] = Location.useForegroundPermissions();
     const [route, setRoute] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
@@ -43,10 +47,24 @@ export default function MapScreen() {
                     return;
                 }
             }
-            // 2. Get Current Location
+            // 2. Get Current Location (and watch for updates)
             try {
+                // Initial fetch
                 const loc = await Location.getCurrentPositionAsync({});
                 setLocation([loc.coords.longitude, loc.coords.latitude]);
+
+                // Watch for changes (for speedometer)
+                await Location.watchPositionAsync({
+                    accuracy: Location.Accuracy.High,
+                    timeInterval: 1000,
+                    distanceInterval: 5,
+                }, (newLoc) => {
+                    setLocation([newLoc.coords.longitude, newLoc.coords.latitude]);
+                    // Speed is in m/s, convert to km/h
+                    const speedKmh = (newLoc.coords.speed || 0) * 3.6;
+                    setSpeed(Math.max(0, speedKmh));
+                });
+
             } catch (e) {
                 console.log("Error getting location", e);
             }
@@ -134,7 +152,11 @@ export default function MapScreen() {
         <View style={styles.page}>
             <View style={styles.searchContainer}>
                 <TextInput
-                    style={styles.searchInput}
+                    style={[styles.searchInput, {
+                        backgroundColor: colors.card,
+                        color: colors.text,
+                        borderColor: colors.border
+                    }]}
                     placeholder="Where to? (e.g. Hauptbahnhof)"
                     placeholderTextColor="#94a3b8"
                     value={searchQuery}
@@ -157,6 +179,8 @@ export default function MapScreen() {
                 logoEnabled={false}
                 onPress={onMapPress}
             >
+                {/* Dark Mode Overlay for Map */}
+                {theme === 'dark' && <View style={styles.darkOverlay} pointerEvents="none" />}
                 <MapLibreGL.Camera
                     zoomLevel={14}
                     centerCoordinate={location || [13.405, 52.52]} // Default to Berlin if no location
@@ -184,8 +208,13 @@ export default function MapScreen() {
             </MapLibreGL.MapView>
 
             <View style={styles.overlay}>
+                <View style={[styles.speedContainer, { backgroundColor: colors.card, borderColor: colors.primary }]}>
+                    <Text style={[styles.speedText, { color: colors.text }]}>{speed.toFixed(0)}</Text>
+                    <Text style={[styles.unitText, { color: '#94a3b8' }]}>km/h</Text>
+                </View>
+
                 <TouchableOpacity
-                    style={styles.button}
+                    style={[styles.button, { backgroundColor: colors.card, borderColor: colors.primary }]}
                     onPress={() => {
                         if (location) {
                             Alert.alert("Info", `Lat: ${location[1].toFixed(4)}, Lon: ${location[0].toFixed(4)}`)
@@ -194,7 +223,7 @@ export default function MapScreen() {
                         }
                     }}
                 >
-                    <Text style={styles.buttonText}>{location ? "Show Info" : "Locating..."}</Text>
+                    <Text style={[styles.buttonText, { color: colors.primary }]}>{location ? "Info" : "..."}</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -269,5 +298,30 @@ const styles = StyleSheet.create({
     buttonText: {
         color: '#38bdf8',
         fontWeight: '600'
+    }
+    darkOverlay: {
+        ...StyleSheet.absoluteFillObject,
+        backgroundColor: 'rgba(0,0,0,0.3)', // Dim the bright OSM map in dark mode
+        zIndex: 1,
+    },
+    speedContainer: {
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 16,
+        borderWidth: 2,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 10, // above button
+        minWidth: 100,
+    },
+    speedText: {
+        fontSize: 32,
+        fontWeight: 'bold',
+        fontVariant: ['tabular-nums'],
+    },
+    unitText: {
+        fontSize: 12,
+        fontWeight: '600',
+        textTransform: 'uppercase',
     }
 });

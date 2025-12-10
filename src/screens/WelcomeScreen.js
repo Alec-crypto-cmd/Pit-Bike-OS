@@ -27,7 +27,7 @@ export default function WelcomeScreen({ navigation }) {
                     <TouchableOpacity
                         style={styles.button}
                         activeOpacity={0.8}
-                        onPress={() => navigation.navigate('Map')}
+                        onPress={() => navigation.replace('Main')}
                     >
                         <Text style={styles.buttonText}>Get Started</Text>
                     </TouchableOpacity>
