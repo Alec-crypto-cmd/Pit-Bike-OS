@@ -1,16 +1,11 @@
-# Fixing Artifact Path
+# Map Detail Update
 
-The build likely succeeded, but the "Upload APK" step failed because I predicted the wrong filename (`app-release-apk.apk` instead of `app-release.apk`).
-
-## The Fix
-I updated the workflow to upload **any APK file** found in the output directory (`*.apk`). This ensures it captures the file regardless of its exact name.
+I encountered a glitch applying the detailed map style previously. I have now fixed it.
+The map will now show full OpenStreetMap details including streets, buildings, and village names.
 
 ## Action Required
-Push the changes again.
+Please run your `.bat` script again (or push manually) to trigger the build.
 
 ```bash
-cd welcome-app
-git add .
-git commit -m "Fix: use wildcard for APK artifact"
-git push
+Git push.bat
 ```

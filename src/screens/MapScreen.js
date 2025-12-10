@@ -5,7 +5,26 @@ import * as Location from 'expo-location';
 import polyline from '@mapbox/polyline';
 
 // Basic OSM Style (Raster)
-const OSM_STYLE_URL = 'https://demotiles.maplibre.org/style.json';
+// Standard OSM Raster Style (Full Detail)
+const OSM_STYLE = {
+    version: 8,
+    sources: {
+        osm: {
+            type: 'raster',
+            tiles: ['https://a.tile.openstreetmap.org/{z}/{x}/{y}.png'],
+            tileSize: 256,
+            attribution: '&copy; OpenStreetMap Contributors',
+            maxzoom: 19,
+        },
+    },
+    layers: [
+        {
+            "id": "osm",
+            "type": "raster",
+            "source": "osm",
+        },
+    ],
+};
 
 export default function MapScreen() {
     const [location, setLocation] = useState(null);
@@ -64,7 +83,7 @@ export default function MapScreen() {
         <View style={styles.page}>
             <MapLibreGL.MapView
                 style={styles.map}
-                styleURL={OSM_STYLE_URL}
+                styleJSON={JSON.stringify(OSM_STYLE)}
                 logoEnabled={false}
                 onPress={onMapPress}
             >
