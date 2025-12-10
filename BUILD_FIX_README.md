@@ -1,16 +1,16 @@
-# Build Failure Fix
+# Build Failure Fix (Attempt 2)
 
-The build likely failed because `assembleRelease` requires a signing key (Keystore) which was not configured. This is standard for Android Release builds.
+The previous build failed because `npx expo prebuild` does not support the `--no-interactive` flag I included.
 
 ## Fix
-I switched the build workflow to use `assembleDebug`. This generates a **Debug APK** which does not require a private key and is perfect for testing the welcome screen.
+I have removed the invalid flag from the workflow file. I also verified locally that `npx expo prebuild` works correcty without it.
 
 ## Action Required
-Push the changes to GitHub to trigger a new build.
+Push the changes to GitHub again.
 
 ```bash
 cd welcome-app
 git add .
-git commit -m "Fix build: switch to debug APK"
+git commit -m "Fix CI: remove invalid flag"
 git push
 ```
