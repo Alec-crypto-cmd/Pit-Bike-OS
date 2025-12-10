@@ -1,10 +1,13 @@
-# Map Style Update
+# Navigation Update
 
-I have switched the map provider to **Google Maps** (Standard View).
-This is the "normal" map style you are likely used to (Streets, Parks, Buildings).
+I have added a **Search Bar** to the top of the map.
+You can now type a destination (e.g., "Berlin Alexanderplatz") and press "Go".
+The app will find the location and draw a route from your position to it.
+
+I also fixed the map file which was briefly corrupted in the previous step.
 
 ## Action Required
-Run your script again to build the new version.
+Push the changes to GitHub to build the updated APK.
 
 ```bash
 Git push.bat
