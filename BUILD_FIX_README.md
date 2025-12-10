@@ -1,10 +1,10 @@
-# Map Detail Update
+# Map Style Update
 
-I encountered a glitch applying the detailed map style previously. I have now fixed it.
-The map will now show full OpenStreetMap details including streets, buildings, and village names.
+I have switched the map provider to **Google Maps** (Standard View).
+This is the "normal" map style you are likely used to (Streets, Parks, Buildings).
 
 ## Action Required
-Please run your `.bat` script again (or push manually) to trigger the build.
+Run your script again to build the new version.
 
 ```bash
 Git push.bat
