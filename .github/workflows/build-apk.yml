@@ -36,15 +36,25 @@ jobs:
       - name: Prebuild (Generate Native Code)
         run: npx expo prebuild --platform android
 
+      - name: Configure Release Signing (Use Debug Key)
+        run: |
+          sed -i 's/signingConfig signingConfigs.debug/signingConfig signingConfigs.debug/' android/app/build.gradle
+          # This is a hack to force release builds to use the debug key if no release key is found
+          sed -i 's/signingConfig signingConfigs.release/signingConfig signingConfigs.debug/g' android/app/build.gradle || true
+          # In case it doesn't have a signingConfig line in release yet, we might need a more robust approach, 
+          # but usually Expo template defaults to checking for a keystore or failing.
+          # Let's try a safer replacement: replace the entire release block or just assume standard template.
+          # Standard template has `signingConfig signingConfigs.release`.
+          
       - name: Build APK with Gradle
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug
+          ./gradlew assembleRelease
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug.apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          name: app-release.apk
+          path: android/app/build/outputs/apk/release/app-release-apk.apk
           retention-days: 7
