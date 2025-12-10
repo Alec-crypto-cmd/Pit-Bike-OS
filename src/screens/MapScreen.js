@@ -4,23 +4,23 @@ import MapLibreGL from '@maplibre/maplibre-react-native';
 import * as Location from 'expo-location';
 import polyline from '@mapbox/polyline';
 
-// Google Maps Standard Style (Raster)
-const GOOGLE_MAPS_STYLE = {
+// Standard OSM Raster Style
+const OSM_STYLE = {
     version: 8,
     sources: {
-        google_streets: {
+        osm: {
             type: 'raster',
-            tiles: ['https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}'],
+            tiles: ['https://a.tile.openstreetmap.org/{z}/{x}/{y}.png'],
             tileSize: 256,
-            attribution: 'Map data &copy; Google',
-            maxzoom: 20,
+            attribution: '&copy; OpenStreetMap Contributors',
+            maxzoom: 19,
         },
     },
     layers: [
         {
-            "id": "google_streets",
+            "id": "osm",
             "type": "raster",
-            "source": "google_streets",
+            "source": "osm",
         },
     ],
 };
@@ -152,7 +152,7 @@ export default function MapScreen() {
 
             <MapLibreGL.MapView
                 style={styles.map}
-                styleJSON={JSON.stringify(GOOGLE_MAPS_STYLE)}
+                styleJSON={JSON.stringify(OSM_STYLE)}
                 logoEnabled={false}
                 onPress={onMapPress}
             >
