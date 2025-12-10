@@ -1,23 +1,16 @@
-# Fixing "Unable to Load Script"
+# Fixing Artifact Path
 
-The error "Unable to load script" happens because the **Debug APK** expects a development server (Metro) to be running on your computer.
-
-## The Solution
-We need a **Release APK** which bundles the script inside the app.
-However, Release builds normally require a private signing key (which you don't have set up).
+The build likely succeeded, but the "Upload APK" step failed because I predicted the wrong filename (`app-release-apk.apk` instead of `app-release.apk`).
 
 ## The Fix
-I have updated the GitHub Action to:
-1. Build a **Release** version (standalone, no Metro needed).
-2. "Hack" the build config to sign it with the **Debug** key.
-   - *Note: This APK is safe to install but cannot be published to the Play Store.*
+I updated the workflow to upload **any APK file** found in the output directory (`*.apk`). This ensures it captures the file regardless of its exact name.
 
 ## Action Required
-Push the changes again to trigger the new build.
+Push the changes again.
 
 ```bash
 cd welcome-app
 git add .
-git commit -m "Fix: build standalone APK with debug signing"
+git commit -m "Fix: use wildcard for APK artifact"
 git push
 ```
