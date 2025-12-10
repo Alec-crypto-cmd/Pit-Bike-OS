@@ -1,9 +1,9 @@
-# Map Style Update - Back to OSM
+# Map Fix - German Server
 
-You mentioned the map was "all yellow". This happens with Google Maps tiles sometimes if the API key is missing or restricted (even though we used a public tile URL).
+The "yellow map" issue confirms that the main OpenStreetMap server was blocking our requests.
 
-I have switched **BACK to OpenStreetMap** (Standard).
-This will definitely work and has the "normal" look with roads, green parks, and blue water - not just yellow.
+I have switched to the **German OpenStreetMap Server** (`tile.openstreetmap.de`).
+This server is reliable and will show the standard "Streets and Cities" map style you want.
 
 ## Action Required
 Push the changes to GitHub.

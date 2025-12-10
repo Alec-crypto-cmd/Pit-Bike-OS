@@ -5,12 +5,13 @@ import * as Location from 'expo-location';
 import polyline from '@mapbox/polyline';
 
 // Standard OSM Raster Style
-const OSM_STYLE = {
+// Standard OSM Raster Style (Via German Server to avoid blocking)
+const OSM_DE_STYLE = {
     version: 8,
     sources: {
         osm: {
             type: 'raster',
-            tiles: ['https://a.tile.openstreetmap.org/{z}/{x}/{y}.png'],
+            tiles: ['https://tile.openstreetmap.de/{z}/{x}/{y}.png'],
             tileSize: 256,
             attribution: '&copy; OpenStreetMap Contributors',
             maxzoom: 19,
@@ -152,7 +153,7 @@ export default function MapScreen() {
 
             <MapLibreGL.MapView
                 style={styles.map}
-                styleJSON={JSON.stringify(OSM_STYLE)}
+                styleJSON={JSON.stringify(OSM_DE_STYLE)}
                 logoEnabled={false}
                 onPress={onMapPress}
             >
