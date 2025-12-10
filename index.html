@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PitBike OS – Wiki & Dokumentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #0f0f0f;
+            color: #e8e8e8;
+        }
+
+        header {
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            padding: 40px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 42px;
+            font-weight: 800;
+        }
+
+        header p {
+            margin-top: 10px;
+            font-size: 18px;
+            opacity: 0.85;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            background: #1b1b1b;
+            padding: 14px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        nav a {
+            color: #00aaff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #66d2ff;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 40px auto;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 15px;
+            border-left: 5px solid #0077ff;
+            padding-left: 12px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #1b1b1b;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            border-color: #0077ff;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #00aaff;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding: 20px;
+            text-align: center;
+            background: #111;
+            color: #888;
+            font-size: 14px;
+        }
+
+        a.button {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #0077ff;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        a.button:hover {
+            background: #0094ff;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>PitBike OS</h1>
+    <p>Das inoffizielle Pitbike-Betriebssystem: Telemetrie, Dashboard & Tools</p>
+</header>
+
+<nav>
+    <a href="#was-ist">Über PitBike OS</a>
+    <a href="#features">Features</a>
+    <a href="#install">Installation</a>
+    <a href="#docs">Dokumentation</a>
+    <a href="https://github.com/Alec-crypto-cmd/Pit-Bike-OS/" target="_blank">GitHub</a>
+</nav>
+
+<div class="container">
+
+    <section id="was-ist">
+        <h2 class="section-title">Was ist PitBike OS?</h2>
+        <p>
+            PitBike OS ist ein selbst entwickeltes Mikrocontroller-System für Pitbikes,
+            das Telemetrie, Elektronik-Steuerung, Sensoren und ein digitales Dashboard
+            vereint. Es soll leicht zu installieren, zu erweitern und zu bedienen sein.
+        </p>
+    </section>
+
+    <section id="features">
+        <h2 class="section-title">Hauptfeatures</h2>
+
+        <div class="card-grid">
+            <div class="card">
+                <h3>Dashboard</h3>
+                <p>Digitale Anzeige für Geschwindigkeit, Drehzahl, Temperatur und mehr.</p>
+            </div>
+
+            <div class="card">
+                <h3>Sensor-Support</h3>
+                <p>Support für Temperatur, Spannung, Neigung und Feuchtigkeitssensoren.</p>
+            </div>
+
+            <div class="card">
+                <h3>OTA-Updates</h3>
+                <p>Software-Updates kabellos über WLAN durchführen.</p>
+            </div>
+
+            <div class="card">
+                <h3>Bluetooth-App</h3>
+                <p>Steuerung und Live-Daten in einer Android-App (Beta).</p>
+            </div>
+
+            <div class="card">
+                <h3>Erweiterbar</h3>
+                <p>Eigenen Code, Module und Widgets einfach hinzufügen.</p>
+            </div>
+
+            <div class="card">
+                <h3>Open Source</h3>
+                <p>Das gesamte Projekt ist offen auf GitHub einsehbar.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="install">
+        <h2 class="section-title">Installation</h2>
+        <p>
+            Lade einfach den neusten Build aus dem GitHub-Repository herunter und flashe
+            ihn auf deinen ESP32 bzw. Controller.
+        </p>
+
+        <a href="https://github.com/Alec-crypto-cmd/Pit-Bike-OS/releases" target="_blank" class="button">
+            Download (Releases)
+        </a>
+    </section>
+
+    <section id="docs">
+        <h2 class="section-title">Dokumentation</h2>
+        <p>Hier findest du technische Informationen, Module, APIs und Tutorials.</p>
+
+        <div class="card-grid">
+            <div class="card">
+                <h3>Setup-Anleitung</h3>
+                <p>Hardwareverkabelung, Flashing und erste Inbetriebnahme.</p>
+            </div>
+            <div class="card">
+                <h3>Modul-Referenz</h3>
+                <p>Alle Code-Module und Sensor-Schnittstellen erklärt.</p>
+            </div>
+            <div class="card">
+                <h3>API-Doku</h3>
+                <p>Funktionen, Klassen, Endpunkte und Systemarchitektur.</p>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    PitBike OS – Open Source Project • GitHub: Alec-crypto-cmd
+</footer>
+
+</body>
+</html>
